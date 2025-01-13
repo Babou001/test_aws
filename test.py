@@ -1,6 +1,6 @@
 import numpy as np
 
-matriX = np.array([
+matrix = np.array([
     [12, 45, 78, 89],
     [56, 78, 90, 123],
     [34, 56, 78, 89],
@@ -13,5 +13,5 @@ matriX = np.array([
 
 x_min = np.min(matrix)
 x_max = np.max(matrix)
-normalized_matrice = (matrix - x_min) / (x_max - x_min)
+normalized_matrix = (matrix - x_min) / (x_max - x_min)
 print(normalized_matrix)

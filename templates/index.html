@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparer deux visages</title>
+    <style>
+        img {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comparer deux visages</h1>
+    <form action="/compare" method="POST" enctype="multipart/form-data">
+        <label for="image1">Image 1 :</label>
+        <input type="file" name="image1" id="image1" accept="image/*" required>
+        <br>
+        <img id="preview1" src="#" alt="Aperçu Image 1" style="display: none;">
+        <br>
+        <label for="image2">Image 2 :</label>
+        <input type="file" name="image2" id="image2" accept="image/*" required>
+        <br>
+        <img id="preview2" src="#" alt="Aperçu Image 2" style="display: none;">
+        <br><br>
+        <button type="submit">Comparer</button>
+    </form>
+
+    <script>
+        const imageInput1 = document.getElementById('image1');
+        const imageInput2 = document.getElementById('image2');
+        const preview1 = document.getElementById('preview1');
+        const preview2 = document.getElementById('preview2');
+
+        imageInput1.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                preview1.src = URL.createObjectURL(file);
+                preview1.style.display = 'block';
+            }
+        });
+
+        imageInput2.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                preview2.src = URL.createObjectURL(file);
+                preview2.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

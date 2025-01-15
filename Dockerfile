@@ -9,8 +9,8 @@ COPY requirements.txt .
 
 
 # Installer les dépendances
-RUN apt install git
-RUN apt install cmake
+RUN sudo apt install git
+RUN sudo apt install cmake
 RUN ./dlib_package.sh
 
 RUN pip install --no-cache-dir -r requirements.txt

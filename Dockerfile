@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Exposer le port sur lequel votre application fonctionnera (si nécessaire)
-EXPOSE 8081  # Ajustez selon votre application
+EXPOSE 8081
 
 # Définir la commande pour exécuter l'application
 CMD ["python", "interface.py"]

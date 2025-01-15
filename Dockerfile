@@ -7,7 +7,9 @@ WORKDIR /app
 # Copier les fichiers nécessaires dans le conteneur
 COPY requirements.txt .
 
+
 # Installer les dépendances
+RUN pip install cmake
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier tout le contenu de votre projet dans le conteneur

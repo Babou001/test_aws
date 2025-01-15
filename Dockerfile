@@ -1,5 +1,5 @@
-# Utiliser une image Python 3.11 officielle
-FROM python:3.9-slim
+# Utiliser une image de base légère avec Python 3.11
+FROM continuumio/miniconda3:4.12.0
 
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
@@ -7,18 +7,24 @@ WORKDIR /app
 # Copier les fichiers nécessaires dans le conteneur
 COPY requirements.txt .
 
+# Mettre à jour Conda et installer les dépendances nécessaires
+RUN conda update -n base -c defaults conda -y && \
+    conda install -n base -c conda-forge dlib -y && \
+    conda install -n base -c conda-forge python=3.11 -y
 
-# Installer les dépendances
-RUN pip install https://pypi.python.org/packages/da/06/bd3e241c4eb0a662914b3b4875fc52dd176a9db0d4a2c915ac2ad8800e9e/dlib-19.7.0-cp36-cp36m-win_amd64.whl#md5=b7330a5b2d46420343fbed5df69e6a3f
+# Créer un environnement spécifique à l'application
+RUN conda create -n fc_recognition python=3.11 -y && \
+    conda clean --all -y
 
+# Activer l'environnement et installer les packages de requirements.txt
+RUN /bin/bash -c "source activate fc_recognition && \
+    pip install --no-cache-dir -r requirements.txt"
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copier tout le contenu de votre projet dans le conteneur
+# Copier tous les fichiers de l'application dans le conteneur
 COPY . .
 
-# Exposer le port sur lequel votre application fonctionnera (si nécessaire)
+# Exposer le port sur lequel l'application s'exécute
 EXPOSE 8081
 
-# Définir la commande pour exécuter l'application
-CMD ["python", "interface.py"]
+# Commande pour activer l'environnement et exécuter l'application
+CMD ["/bin/bash", "-c", "source activate fc_recognition && python interface.py"]
